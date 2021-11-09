@@ -1,7 +1,7 @@
 # javaGGC
 ***javaGGC for generate commons.collections gadget chain***
 
-## usage
+## Usage
 ### javaGGC 0
 Use available ggc now!
 
@@ -55,6 +55,7 @@ Available Sink:
   [2] TemplatesImplNewTransformerSink (code)
   [3] TemplatesImplTrAXFilterSink (code)
 ```
+usage: `javaGGC 3 0 0 calc.exe`
 
 #### javaGGC 4
 ```
@@ -68,12 +69,18 @@ Available Source:
   [2] HashSetSource
   [3] HashtableSource
   [4] PriorityQueueSource
+  [5] TreeBagSource
 Available Sink:
   [0] RuntimeExecSink (command)
   [1] ScriptEngineManagerSink (code)
   [2] TemplatesImplNewTransformerSink (code)
   [3] TemplatesImplTrAXFilterSink (code)
 ```
+usage: `javaGGC 4 0 0 calc.exe`
+
+## Update
+### V0.0.3
+- add TreeBagSource for commons collections 4
 
 ## Reference
 [CCK Reference](https://github.com/shadowsock5/ysoserial/commit/cb0a3fa7aa8de4563fd4e1c57d45e6cd1ffea971)

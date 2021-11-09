@@ -1,7 +1,7 @@
 public class GGC {
 
     // public static Object CCC1() throws Exception {
-    //     return Source3.HashMapSource(Sink3.ScriptEngineManagerSink(DefaultConfig.code));
+    //     return Source4.TreeBagSource(Sink4.TemplatesImplNewTransformerSink(DefaultConfig.code));
     // }
 
     @SinkTypeAnnotation(type = "command")

@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 
 public class GGCTest {
     public static void main(String[] args) throws Exception {
-        // Object obj = GGC.CC2();
+        // Object obj = GGC.CCC1();
         //
         // ByteArrayOutputStream barr = new ByteArrayOutputStream();
         // ObjectOutputStream oos = new ObjectOutputStream(barr);
