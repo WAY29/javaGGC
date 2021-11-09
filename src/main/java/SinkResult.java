@@ -2,7 +2,7 @@ import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
 import org.apache.commons.collections.Transformer;
 
 enum SinkResultID {
-    RuntimeExec, TemplatesImplNewTransformer, TemplatesImplTrAXFilter;
+    RuntimeExec, TemplatesImplNewTransformer, TemplatesImplTrAXFilter, ScriptEngineManager;
 }
 
 class DefaultConfig {

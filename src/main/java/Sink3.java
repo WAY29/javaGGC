@@ -58,7 +58,7 @@ public class Sink3 {
 
         Transformer transformer = new ChainedTransformer(transformers);
 
-        return new SinkResult(SinkResultID.TemplatesImplNewTransformer, transformer, null, null);
+        return new SinkResult(SinkResultID.ScriptEngineManager, transformer, null, null);
     }
 
     private static TemplatesImpl generateTemplates(String code) throws Exception {

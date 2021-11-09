@@ -223,7 +223,8 @@ public class Main {
         ObjectOutputStream oos = new ObjectOutputStream(barr);
         oos.writeObject(obj);
         oos.close();
-        System.out.print(barr);
+        ObjectOutputStream objOut = new ObjectOutputStream(System.out);
+        objOut.writeObject(obj);
 
         if ((version == 0 && args.length == 4) || args.length == 5) {
             try {

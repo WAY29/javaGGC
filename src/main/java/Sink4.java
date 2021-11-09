@@ -61,7 +61,7 @@ public class Sink4 {
 
         Transformer transformer = new ChainedTransformer(transformers);
 
-        return new SinkResult(SinkResultID.TemplatesImplNewTransformer, null, transformer, null);
+        return new SinkResult(SinkResultID.ScriptEngineManager, null, transformer, null);
     }
 
 

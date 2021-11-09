@@ -32,7 +32,7 @@ public class Source4 {
         Map proxyMap = (Map) Proxy.newProxyInstance(Map.class.getClassLoader(), new Class[]{Map.class}, obj);
         obj = (InvocationHandler) constructor.newInstance(Retention.class, proxyMap);
 
-        Reflections.setFieldValue(outerMap, "factory", result.transformer);
+        Reflections.setFieldValue(outerMap, "factory", result.transformer4);
 
         return obj;
     }
