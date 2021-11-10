@@ -18,7 +18,7 @@ public class Source3 {
 
     public static InvocationHandler AnnotationInvocationHandlerSource(SinkResult result) throws Exception {
         if (result.id == SinkResultID.TemplatesImplNewTransformer) {
-            throw  new IllegalArgumentException("Can't use TemplatesImplNewTransformer as sink");
+            throw  new IllegalArgumentException("[sink]: Can't use TemplatesImplNewTransformer as sink");
         }
         Transformer fakeTransformers = generateFakeTransformers();
 

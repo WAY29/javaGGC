@@ -9,7 +9,13 @@ public class Main {
     static List<Method> GGCMethodList;
 
     public static void usage() {
-        String s = "Usage: javaGGC version=(3/4) [source=SOURCE_INDEX] [sink=SINK_INDEX] [arg=(command/code, 1 means default, startswith file:// means read code from file)] [test_on_local=(anyValue means yes)] \n       |\n       javaGGC 0 [ggc=CC_INDEX/CC_NAME] [arg=(command/code, 1 means default, startswith file:// means read code from file)] [test_on_local=(anyValue means yes)]\n";
+        String s = "Usage: javaGGC version=(3/4) [source=SOURCE_INDEX] [sink=SINK_INDEX] [arg=(command/code/schema, please see below for more information)] [test_on_local=(anyValue means yes)]\n"+
+                   "       |\n"+
+                   "       javaGGC 0 [ggc=CC_INDEX/CC_NAME] [arg=(command/code/schema, please see below for more information)] [test_on_local=(anyValue means yes)]\n" +
+                   "\n" +
+                   "       arg: 1 means run calc.exe and allow schema:" +
+                   "           file:// read contents as arg from file" +
+                   "           class:// read class bytes as args from class file";
         System.out.println(s);
     }
 
@@ -68,35 +74,39 @@ public class Main {
         System.exit(2);
     }
 
-    private static String DealWithArg(String arg, boolean IsSinkExec) {
+    private static Object DealWithArg(String arg, boolean IsSinkExec) {
+        Object result = null;
+
         if (arg.equals("1")) {
             if (IsSinkExec) {
-                arg = DefaultConfig.command;
+                result = DefaultConfig.command;
             } else {
-                arg = DefaultConfig.code;
+                result = DefaultConfig.code;
             }
         } else if (arg.startsWith("file://")) {
             arg = arg.substring(7);
             try {
-                arg = readToString(arg);
+                result = Utils.readFiletoString(arg);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(3);
             }
+        } else if (arg.startsWith("class://")) {
+            arg = arg.substring(8);
+            try {
+                result = Utils.readFileToBytes(arg);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(3);
+            }
+        } else {
+            result = arg;
         }
-        return arg;
+
+        return result;
     }
 
-    private static String readToString(String fileName) throws IOException {
-        String encoding = "utf-8";
-        File file = new File(fileName);
-        Long filelength = file.length();
-        byte[] filecontent = new byte[filelength.intValue()];
-        FileInputStream in = new FileInputStream(file);
-        in.read(filecontent);
-        in.close();
-        return new String(filecontent, encoding);
-    }
+
 
     private static String AppendGGCComment(String name, Method method) {
         if (method.isAnnotationPresent(SinkTypeAnnotation.class)) {
@@ -128,6 +138,7 @@ public class Main {
         Integer SinkIndex = -1;
         Integer GGCIndex = -1;
         String arg = "";
+        Object objArg = null;
         Object obj = null;
         boolean isSinkExec = false;
 
@@ -173,9 +184,9 @@ public class Main {
             if (SinkMethod.getName().contains("RuntimeExec")) {
                 isSinkExec = true;
             }
-            arg = DealWithArg(args[3], isSinkExec);
+            objArg = DealWithArg(args[3], isSinkExec);
 
-            SinkResult sinkResult = (SinkResult) SinkMethod.invoke(null, arg);
+            SinkResult sinkResult = (SinkResult) SinkMethod.invoke(null, objArg);
             obj = SourceMethod.invoke(null, sinkResult);
 
         } else if (version == 0) {
@@ -207,8 +218,9 @@ public class Main {
                     isSinkExec = true;
                 }
             }
-            arg = DealWithArg(args[2], isSinkExec);
-            obj = GGCMethod.invoke(null, arg);
+            objArg = DealWithArg(args[2], isSinkExec);
+            System.out.println(objArg);
+            obj = GGCMethod.invoke(null, objArg);
         } else {
             System.out.println("IllegalArgumentException: version must be 0 or 3 or 4");
             help();
