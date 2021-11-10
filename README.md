@@ -87,6 +87,9 @@ Available Sink:
 usage: `javaGGC 4 0 0 calc.exe`
 
 ## Update
+### V0.0.6
+- when the parameter is wrong, output the correct help information and exit
+- refactor
 ### V0.0.5
 - add sinkResultID for ScriptEngineManagerSink
 - fix GGH1, GGH3

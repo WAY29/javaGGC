@@ -137,7 +137,7 @@ public class Main {
         try {
             version = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
-            usage();
+            help();
         }
         if (version == 3 || version == 4) {
             if (version == 3) {
@@ -156,14 +156,14 @@ public class Main {
                 SourceIndex = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
                 System.out.println("IllegalArgumentException: source must be Integer");
-                usage();
+                help();
             }
 
             try {
                 SinkIndex = Integer.parseInt(args[2]);
             } catch (NumberFormatException e) {
                 System.out.println("IllegalArgumentException: sink must be Integer");
-                usage();
+                help();
             }
 
 
@@ -211,7 +211,7 @@ public class Main {
             obj = GGCMethod.invoke(null, arg);
         } else {
             System.out.println("IllegalArgumentException: version must be 0 or 3 or 4");
-            usage();
+            help();
         }
 
         if (obj == null) {

