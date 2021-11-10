@@ -219,7 +219,6 @@ public class Main {
                 }
             }
             objArg = DealWithArg(args[2], isSinkExec);
-            System.out.println(objArg);
             obj = GGCMethod.invoke(null, objArg);
         } else {
             System.out.println("IllegalArgumentException: version must be 0 or 3 or 4");

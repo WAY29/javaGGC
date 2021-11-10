@@ -87,6 +87,10 @@ Available Sink:
 usage: `javaGGC 4 0 0 calc.exe`
 
 ## Update
+### V0.0.8
+- remove debug output
+- refactor RuntimeExecSink argument
+
 ### V0.0.7
 - allow `class://` schema as arg for load custom class
 - refactor
